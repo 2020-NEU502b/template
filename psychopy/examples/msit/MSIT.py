@@ -1,3 +1,4 @@
+import datetime
 from psychopy import clock, core, event, logging, visual
 from pandas import read_csv
 
@@ -25,7 +26,7 @@ def TextTrial(stimulus, text, time, keyList):
     stimulus.draw()
 
     ## Draw text.
-    W.logOnFlip(level=logging.EXP, msg=text)
+    W.logOnFlip(level=logging.EXP, msg='Stimulus: '+text)
     TimeStamp = W.flip()
 
     ## Wait for response.
@@ -83,9 +84,10 @@ if KeyPress == 'escape': QuitTask()
 ## Run the task. To abort task, hit 'escape' key.
 
 ## Initialize logging.
+dt = datetime.datetime.now().strftime('%Y_%m_%d_%H%M')
 globalClock = core.Clock()
 logging.setDefaultClock(globalClock)
-logging.LogFile('%s-MSIT.log' %f, level=logging.EXP, filemode='w')
+logging.LogFile('%s-MSIT-%s.log' % (f, dt), level=logging.EXP, filemode='w')
 
 ## Run task.
 for _, trial in experiment.iterrows():
